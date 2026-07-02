@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VÒNG QUAY MAY MẮN</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&amp;family=Be+Vietnam+Pro:wght@400;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#785900",
+                        "tertiary": "#005a98",
+                        "primary-fixed-dim": "#ffb3ac",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#d32f2f",
+                        "tertiary-container": "#0073c0",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#2b1613",
+                        "on-secondary-fixed-variant": "#5b4300",
+                        "inverse-surface": "#422a26",
+                        "on-secondary-fixed": "#261a00",
+                        "on-secondary-container": "#6c5000",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#00497d",
+                        "on-primary-fixed": "#410003",
+                        "surface-variant": "#ffdad4",
+                        "surface-dim": "#f8d1cb",
+                        "surface-tint": "#ba1a20",
+                        "outline": "#8f6f6c",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#ffdad6",
+                        "tertiary-fixed": "#d1e4ff",
+                        "secondary-fixed": "#ffdf9e",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "primary": "#af101a",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#001d36",
+                        "on-primary-container": "#fff2f0",
+                        "surface-bright": "#fff8f6",
+                        "surface-container": "#ffe9e5",
+                        "background": "#fff8f6",
+                        "surface-container-highest": "#ffdad4",
+                        "secondary-fixed-dim": "#fabd00",
+                        "inverse-on-surface": "#ffedea",
+                        "tertiary-fixed-dim": "#9ecaff",
+                        "inverse-primary": "#ffb3ac",
+                        "surface-container-low": "#fff0ee",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#5b403d",
+                        "on-tertiary-container": "#f0f5ff",
+                        "on-background": "#2b1613",
+                        "surface-container-high": "#ffe2dd",
+                        "outline-variant": "#e4beba",
+                        "surface": "#fff8f6",
+                        "secondary-container": "#fdc003",
+                        "on-primary-fixed-variant": "#930010"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding": "24px",
+                        "component-gap": "12px",
+                        "unit": "4px",
+                        "gutter-md": "16px"
+                    },
+                    "fontFamily": {
+                        "display-xl": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "label-bold": ["Be Vietnam Pro"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "display-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "label-bold": ["14px", {"lineHeight": "20px", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        @keyframes pulse-gold {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(253, 192, 3, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(253, 192, 3, 0.7); }
+        }
+
+        .spin-pulse {
+            animation: pulse-gold 2s infinite ease-in-out;
+        }
+
+        .wheel-shadow {
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.1), 0 20px 50px rgba(175, 16, 26, 0.2);
+        }
+
+        .diagonal-bg {
+            background-image: repeating-linear-gradient(
+                -45deg,
+                rgba(255, 233, 229, 0.5) 0,
+                rgba(255, 233, 229, 0.5) 20px,
+                rgba(255, 248, 246, 0.5) 20px,
+                rgba(255, 248, 246, 0.5) 40px
+            );
+        }
+
+        #wheel-canvas {
+            transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1);
+        }
+
+        .prize-segment {
+            transform-origin: center;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden">
+<!-- Top Navigation Bar (Shared Component) -->
+<header class="bg-surface/80 backdrop-blur-md shadow-sm fixed top-0 w-full z-50">
+<div class="flex justify-between items-center w-full px-container-padding py-4 max-w-7xl mx-auto">
+<h1 class="font-display-xl text-headline-lg-mobile md:text-display-xl font-extrabold text-primary dark:text-primary-fixed-dim uppercase tracking-tighter">
+                VÒNG QUAY MAY MẮN
+            </h1>
+<div class="flex items-center gap-4">
+<button class="hover:bg-surface-container-high transition-colors p-2 rounded-full Active:opacity-80 Active:scale-95">
+<span class="material-symbols-outlined text-primary" data-icon="history">history</span>
+</button>
+<button class="hover:bg-surface-container-high transition-colors p-2 rounded-full Active:opacity-80 Active:scale-95">
+<span class="material-symbols-outlined text-primary" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-grow pt-24 pb-12 flex flex-col items-center justify-center relative diagonal-bg overflow-hidden">
+<!-- Decorative Background Light Rays -->
+<div class="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center opacity-30">
+<div class="w-[150%] h-[150%] bg-[radial-gradient(circle,rgba(253,192,3,0.2)_0%,transparent_70%)] animate-pulse"></div>
+</div>
+<!-- Title & Subtitle Section -->
+<div class="text-center mb-8 z-10 animate-fade-in px-4">
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-2 drop-shadow-md">
+                CHÀO MỪNG BẠN!
+            </h2>
+<p class="text-on-surface-variant font-body-md max-w-md mx-auto">
+                Nhấn nút để quay và nhận quà cực khủng! Cơ hội trúng giải thưởng cao cấp mỗi ngày.
+            </p>
+</div>
+<!-- The Lucky Wheel Container -->
+<div class="relative w-[340px] h-[340px] md:w-[500px] md:h-[500px] flex items-center justify-center z-20">
+<!-- External Decorative Border -->
+<div class="absolute inset-[-10px] rounded-full border-[8px] border-secondary-container opacity-50 blur-sm"></div>
+<!-- Wheel Frame with Lights -->
+<div class="absolute inset-[-4px] rounded-full border-[12px] border-white shadow-xl z-10 flex items-center justify-center">
+<!-- Decorative lights dots -->
+<div class="absolute inset-0 rotate-0"><div class="absolute top-1 left-1/2 -translate-x-1/2 w-3 h-3 bg-secondary-container rounded-full shadow-[0_0_8px_#fdc003]"></div></div>
+<div class="absolute inset-0 rotate-45"><div class="absolute top-1 left-1/2 -translate-x-1/2 w-3 h-3 bg-white rounded-full"></div></div>
+<div class="absolute inset-0 rotate-90"><div class="absolute top-1 left-1/2 -translate-x-1/2 w-3 h-3 bg-secondary-container rounded-full shadow-[0_0_8px_#fdc003]"></div></div>
+<div class="absolute inset-0 rotate-135"><div class="absolute top-1 left-1/2 -translate-x-1/2 w-3 h-3 bg-white rounded-full"></div></div>
+<div class="absolute inset-0 rotate-180"><div class="absolute top-1 left-1/2 -translate-x-1/2 w-3 h-3 bg-secondary-container rounded-full shadow-[0_0_8px_#fdc003]"></div></div>
+<div class="absolute inset-0 rotate-225"><div class="absolute top-1 left-1/2 -translate-x-1/2 w-3 h-3 bg-white rounded-full"></div></div>
+<div class="absolute inset-0 rotate-270"><div class="absolute top-1 left-1/2 -translate-x-1/2 w-3 h-3 bg-secondary-container rounded-full shadow-[0_0_8px_#fdc003]"></div></div>
+<div class="absolute inset-0 rotate-315"><div class="absolute top-1 left-1/2 -translate-x-1/2 w-3 h-3 bg-white rounded-full"></div></div>
+</div>
+<!-- Arrow Pointer -->
+<div class="absolute top-[-25px] left-1/2 -translate-x-1/2 z-40 drop-shadow-lg">
+<span class="material-symbols-outlined text-[48px] text-primary" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<!-- The Spinning Part -->
+<div class="w-full h-full rounded-full border-8 border-white overflow-hidden relative wheel-shadow" id="wheel-canvas">
+<svg class="w-full h-full" viewbox="0 0 100 100">
+<!-- Segments -->
+<!-- 5 Segments = 72 degrees each -->
+<!-- Red Segment (Motorcycle) -->
+<path d="M 50 50 L 50 0 A 50 50 0 0 1 97.55 34.55 Z" fill="#af101a" stroke="white" stroke-width="0.5"></path>
+<!-- Blue Segment (Phone) -->
+<path d="M 50 50 L 97.55 34.55 A 50 50 0 0 1 79.39 90.45 Z" fill="#005a98" stroke="white" stroke-width="0.5"></path>
+<!-- Purple Segment (Headphones) -->
+<path d="M 50 50 L 79.39 90.45 A 50 50 0 0 1 20.61 90.45 Z" fill="#6a1b9a" stroke="white" stroke-width="0.5"></path>
+<!-- Teal Segment (Premium Oil) -->
+<path d="M 50 50 L 20.61 90.45 A 50 50 0 0 1 2.45 34.55 Z" fill="#008080" stroke="white" stroke-width="0.5"></path>
+<!-- Yellow Segment (Clover) -->
+<path d="M 50 50 L 2.45 34.55 A 50 50 0 0 1 50 0 Z" fill="#fdc003" stroke="white" stroke-width="0.5"></path>
+</svg>
+<!-- Icons placed over SVG segments via absolute positioning -->
+<!-- Red: Scooter -->
+<div class="absolute top-[15%] right-[20%] -rotate-[36deg] flex flex-col items-center">
+<img class="w-12 h-12 md:w-20 md:h-20 object-contain rounded-full bg-white/10 p-1" data-alt="A sleek, modern high-fidelity blue electric scooter with chrome accents, isolated on a clean white background with professional studio lighting and soft shadows, vibrant and futuristic style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOSZxAGEwAg_g3rbuOmSe072V3mxX45ssxvgL43JeG-iPLQj8E0qYJaSiCj9farGLKYJksVnDKvFBHnWzDm8-GLlxDkYNAab4HYiXigM-SBc7HWVDJh-0M7uPmrCMs85iJo5apaIBqEFiKhgymNHTyJg2EmoyamIXQqJE0t8CRIYZtuRaZRLR5gfA7PEq44mSnUjGTMHTOpf_FI0yGAlSFgzE7RktcGO2ZQu7cmgRq1dwYalMDPP2ILjU-JACF-tPTBFR78GmDUeU"/>
+</div>
+<!-- Blue: Smartphone -->
+<div class="absolute bottom-[20%] right-[15%] rotate-[36deg] flex flex-col items-center">
+<img class="w-12 h-12 md:w-20 md:h-20 object-contain rounded-full bg-white/10 p-1" data-alt="A high-end futuristic smartphone showing a vibrant glowing screen, sleek titanium frame, premium optics on the back camera, professional studio product photography on a minimal background, modern vibrant aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbdmuqJ1ZQBY-0ztvGtwnDs4SW9NFcysrVrKAiBOyX5QlFZODDz0PPv3hZdUWAuqTh6TQd4cdSDhC8RIm8gBWkiP_U-S-BwO-Cq4XA6PO9KvMIIl8qX5TLORE3gxmGCOAP4wP42cSeEkO6JNff7qdCdHmCYFVGwirO4SeYiQHz0OaERuDaGlehKgMOtasAFDxBFnIniGXyt_fjtQD9ARIUK_qSD1N5Ubeikj4U4xjc2hcbnjS1Pk3dHQclmAZ6f0QDxOPPMiPogpk"/>
+</div>
+<!-- Purple: Headphones -->
+<div class="absolute bottom-[10%] left-1/2 -translate-x-1/2 rotate-[108deg] flex flex-col items-center">
+<img class="w-12 h-12 md:w-20 md:h-20 object-contain rounded-full bg-white/10 p-1" data-alt="Professional over-ear studio headphones in matte black and silver, featuring soft leather ear cushions and a sleek adjustable headband, high-tech luxury product shot, vibrant lighting accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMw1Q2x1meJtooiF6NWyb9qUyrtSDyIHcpRdHm0qb6hSjqbDmG9f5kxBUKsPQQ8XTwUeaFneVrAT8Xoy_GPB4mWHS4VrW4jbdK_KfUAwc7E-WeVriPq09fgBTJojvsopRkJ-U5RqP6rTiShaNHy4CiM1NOGXPkl1GwDHL4A1dNKUWnFb-BR_OKBQcXmBPEHKZWaauAz1mfqcz4lFeba5rPV9b4u-ptGPtZZwEHj9Vx18ADNvlXU1XDxcpzrEhivIaUVduwQTvCJ9M"/>
+</div>
+<!-- Teal: Oil Can -->
+<div class="absolute bottom-[20%] left-[15%] rotate-[180deg] flex flex-col items-center">
+<img class="w-12 h-12 md:w-20 md:h-20 object-contain rounded-full bg-white/10 p-1" data-alt="A premium yellow and red motor oil container with a modern ergonomic design and vibrant Shell-inspired branding, professional automotive product photography, clean glossy finish." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSNBjUiugvoFOVkQokh-mZma39bgGVy-sILbqfd22ayAqQ6h2PlpbM82VY85VvXPfMaLXxizFrgu9chiXjrbFmdsD_dT1YZ_RD3l2aQW-S6IqaVVUWFbvCL4fYR3LSzoqujcW31hpWvCL_DoA_FDsR7c4lcdhCosyOg3b4k4ETTkga7M7IruS4AJBOYoXFZLUVr8DzwpCqeMJVEGf8yElspfgNUvr4-NiVlPPq4joLqVZZPNi8oNPEVywmmAyCTHgHVfQeEa0RozM"/>
+</div>
+<!-- Yellow: Better luck next time -->
+<div class="absolute top-[15%] left-[18%] rotate-[252deg] flex flex-col items-center">
+<div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-white/95 border-4 border-yellow-200 shadow-lg flex items-center justify-center text-center">
+<span class="text-[9px] md:text-[13px] font-extrabold uppercase leading-tight text-primary">Chúc bạn<br/>may mắn</span>
+</div>
+</div>
+</div>
+<!-- Central Button -->
+<button class="absolute z-50 w-24 h-24 md:w-32 md:h-32 bg-gradient-to-br from-secondary-container to-secondary rounded-full border-4 border-white flex flex-col items-center justify-center spin-pulse Active:scale-90 transition-transform cursor-pointer group" id="spin-btn">
+<span class="text-white font-bold text-label-bold md:text-headline-lg-mobile leading-tight uppercase tracking-tight text-center">
+                    QUAY<br/>NGAY
+                </span>
+</button>
+</div>
+</main>
+<!-- Result Modal (Hidden by default) -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center bg-on-background/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-500" id="result-modal">
+<div class="bg-surface p-8 rounded-lg max-w-sm w-full mx-4 shadow-2xl border-2 border-primary-container text-center scale-90 transition-transform duration-500 transform">
+<div class="absolute inset-0 -z-10 bg-[radial-gradient(circle,rgba(253,192,3,0.3)_0%,transparent_70%)] animate-spin opacity-50" id="modal-sunburst" style="animation-duration: 10s"></div>
+<div class="mb-4 flex justify-center">
+<div class="w-24 h-24 bg-primary-container/10 rounded-full flex items-center justify-center p-4">
+<span class="material-symbols-outlined text-primary text-[64px]" style="font-variation-settings: 'FILL' 1;">celebration</span>
+</div>
+</div>
+<h3 class="font-headline-lg text-primary mb-2 uppercase tracking-tighter">CHÚC MỪNG!</h3>
+<p class="font-headline-lg-mobile text-on-surface mb-6" id="winner-text">Bạn đã trúng một giải thưởng!</p>
+<button class="w-full bg-primary text-white font-bold py-4 rounded-full shadow-lg hover:brightness-110 active:scale-95 transition-all" onclick="closeModal()">
+                NHẬN NGAY
+            </button>
+</div>
+</div>
+<script>
+        const wheel = document.getElementById('wheel-canvas');
+        const btn = document.getElementById('spin-btn');
+        const modal = document.getElementById('result-modal');
+        const modalContent = modal.querySelector('div');
+        const winnerText = document.getElementById('winner-text');
+        
+        let currentRotation = 0;
+        let isSpinning = false;
+
+        const prizes = [
+            "Xe Máy Cao Cấp",
+            "Chúc Bạn May Mắn",
+            "Dầu Máy",
+            "Tai Nghe Pro",
+            "Điện Thoại Luxury"
+        ];
+        const prizeStopAngles = [324, 36, 108, 180, 252];
+
+        function getWinningPrizeIndex() {
+            return Math.random() < 0.6 ? 1 : 2;
+        }
+
+        btn.addEventListener('click', () => {
+            if (isSpinning) return;
+
+            isSpinning = true;
+            const prizeIndex = getWinningPrizeIndex();
+            const extraRounds = 5 + Math.floor(Math.random() * 5);
+            const currentAngle = currentRotation % 360;
+            const stopAngle = prizeStopAngles[prizeIndex];
+            const angleToTarget = (stopAngle - currentAngle + 360) % 360;
+            const totalRotation = extraRounds * 360 + angleToTarget;
+            
+            currentRotation += totalRotation;
+            wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+            setTimeout(() => {
+                isSpinning = false;
+                showWinner(prizes[prizeIndex]);
+            }, 4000);
+        });
+
+        function showWinner(prize) {
+            winnerText.innerText = `Bạn đã trúng:\n${prize}`;
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-90');
+            modalContent.classList.add('scale-100');
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-90');
+        }
+    </script>
+</body></html>
