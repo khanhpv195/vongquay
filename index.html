@@ -124,8 +124,52 @@
             transition: transform 10s cubic-bezier(0.15, 0, 0.15, 1);
         }
 
-        .prize-segment {
-            transform-origin: center;
+        .wheel-prize-marker {
+            width: 72px;
+            height: 72px;
+        }
+
+        @media (min-width: 768px) {
+            .wheel-prize-marker {
+                width: 92px;
+                height: 92px;
+            }
+        }
+
+        .wheel-prize-badge {
+            width: 100%;
+            height: 100%;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.96);
+            border: 4px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 12px 22px rgba(43, 22, 19, 0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .wheel-prize-badge img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 6px;
+        }
+
+        .wheel-prize-text {
+            color: #af101a;
+            font-size: 9px;
+            font-weight: 800;
+            line-height: 1.05;
+            text-transform: uppercase;
+            padding: 8px;
+        }
+
+        @media (min-width: 768px) {
+            .wheel-prize-text {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
@@ -182,43 +226,8 @@
 </div>
 <!-- The Spinning Part -->
 <div class="w-full h-full rounded-full border-8 border-white overflow-hidden relative wheel-shadow" id="wheel-canvas">
-<svg class="w-full h-full" viewbox="0 0 100 100">
-<!-- Segments -->
-<!-- 5 Segments = 72 degrees each -->
-<!-- Red Segment (Motorcycle) -->
-<path d="M 50 50 L 50 0 A 50 50 0 0 1 97.55 34.55 Z" fill="#af101a" stroke="white" stroke-width="0.5"></path>
-<!-- Blue Segment (Phone) -->
-<path d="M 50 50 L 97.55 34.55 A 50 50 0 0 1 79.39 90.45 Z" fill="#005a98" stroke="white" stroke-width="0.5"></path>
-<!-- Purple Segment (Headphones) -->
-<path d="M 50 50 L 79.39 90.45 A 50 50 0 0 1 20.61 90.45 Z" fill="#6a1b9a" stroke="white" stroke-width="0.5"></path>
-<!-- Teal Segment (Premium Oil) -->
-<path d="M 50 50 L 20.61 90.45 A 50 50 0 0 1 2.45 34.55 Z" fill="#008080" stroke="white" stroke-width="0.5"></path>
-<!-- Yellow Segment (Clover) -->
-<path d="M 50 50 L 2.45 34.55 A 50 50 0 0 1 50 0 Z" fill="#fdc003" stroke="white" stroke-width="0.5"></path>
-</svg>
-<!-- Icons placed over SVG segments via absolute positioning -->
-<!-- Red: Scooter -->
-<div class="absolute top-[15%] right-[20%] -rotate-[36deg] flex flex-col items-center">
-<img class="w-12 h-12 md:w-20 md:h-20 object-contain rounded-full bg-white/10 p-1" data-alt="A sleek, modern high-fidelity blue electric scooter with chrome accents, isolated on a clean white background with professional studio lighting and soft shadows, vibrant and futuristic style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOSZxAGEwAg_g3rbuOmSe072V3mxX45ssxvgL43JeG-iPLQj8E0qYJaSiCj9farGLKYJksVnDKvFBHnWzDm8-GLlxDkYNAab4HYiXigM-SBc7HWVDJh-0M7uPmrCMs85iJo5apaIBqEFiKhgymNHTyJg2EmoyamIXQqJE0t8CRIYZtuRaZRLR5gfA7PEq44mSnUjGTMHTOpf_FI0yGAlSFgzE7RktcGO2ZQu7cmgRq1dwYalMDPP2ILjU-JACF-tPTBFR78GmDUeU"/>
-</div>
-<!-- Blue: Smartphone -->
-<div class="absolute bottom-[20%] right-[15%] rotate-[36deg] flex flex-col items-center">
-<img class="w-12 h-12 md:w-20 md:h-20 object-contain rounded-full bg-white/10 p-1" data-alt="A high-end futuristic smartphone showing a vibrant glowing screen, sleek titanium frame, premium optics on the back camera, professional studio product photography on a minimal background, modern vibrant aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbdmuqJ1ZQBY-0ztvGtwnDs4SW9NFcysrVrKAiBOyX5QlFZODDz0PPv3hZdUWAuqTh6TQd4cdSDhC8RIm8gBWkiP_U-S-BwO-Cq4XA6PO9KvMIIl8qX5TLORE3gxmGCOAP4wP42cSeEkO6JNff7qdCdHmCYFVGwirO4SeYiQHz0OaERuDaGlehKgMOtasAFDxBFnIniGXyt_fjtQD9ARIUK_qSD1N5Ubeikj4U4xjc2hcbnjS1Pk3dHQclmAZ6f0QDxOPPMiPogpk"/>
-</div>
-<!-- Purple: Headphones -->
-<div class="absolute bottom-[10%] left-1/2 -translate-x-1/2 rotate-[108deg] flex flex-col items-center">
-<img class="w-12 h-12 md:w-20 md:h-20 object-contain rounded-full bg-white/10 p-1" data-alt="Professional over-ear studio headphones in matte black and silver, featuring soft leather ear cushions and a sleek adjustable headband, high-tech luxury product shot, vibrant lighting accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMw1Q2x1meJtooiF6NWyb9qUyrtSDyIHcpRdHm0qb6hSjqbDmG9f5kxBUKsPQQ8XTwUeaFneVrAT8Xoy_GPB4mWHS4VrW4jbdK_KfUAwc7E-WeVriPq09fgBTJojvsopRkJ-U5RqP6rTiShaNHy4CiM1NOGXPkl1GwDHL4A1dNKUWnFb-BR_OKBQcXmBPEHKZWaauAz1mfqcz4lFeba5rPV9b4u-ptGPtZZwEHj9Vx18ADNvlXU1XDxcpzrEhivIaUVduwQTvCJ9M"/>
-</div>
-<!-- Teal: Oil Can -->
-<div class="absolute bottom-[20%] left-[15%] rotate-[180deg] flex flex-col items-center">
-<img class="w-12 h-12 md:w-20 md:h-20 object-contain rounded-full bg-white/10 p-1" data-alt="A premium yellow and red motor oil container with a modern ergonomic design and vibrant Shell-inspired branding, professional automotive product photography, clean glossy finish." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSNBjUiugvoFOVkQokh-mZma39bgGVy-sILbqfd22ayAqQ6h2PlpbM82VY85VvXPfMaLXxizFrgu9chiXjrbFmdsD_dT1YZ_RD3l2aQW-S6IqaVVUWFbvCL4fYR3LSzoqujcW31hpWvCL_DoA_FDsR7c4lcdhCosyOg3b4k4ETTkga7M7IruS4AJBOYoXFZLUVr8DzwpCqeMJVEGf8yElspfgNUvr4-NiVlPPq4joLqVZZPNi8oNPEVywmmAyCTHgHVfQeEa0RozM"/>
-</div>
-<!-- Yellow: Better luck next time -->
-<div class="absolute top-[15%] left-[18%] rotate-[252deg] flex flex-col items-center">
-<div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-white/95 border-4 border-yellow-200 shadow-lg flex items-center justify-center text-center">
-<span class="text-[9px] md:text-[13px] font-extrabold uppercase leading-tight text-primary">Chúc bạn<br/>may mắn</span>
-</div>
-</div>
+<svg class="w-full h-full" id="wheel-svg" viewBox="0 0 100 100"></svg>
+<div class="absolute inset-0 pointer-events-none" id="prize-icons"></div>
 </div>
 <!-- Central Button -->
 <button class="absolute z-50 w-24 h-24 md:w-32 md:h-32 bg-gradient-to-br from-secondary-container to-secondary rounded-full border-4 border-white flex flex-col items-center justify-center spin-pulse Active:scale-90 transition-transform cursor-pointer group" id="spin-btn">
@@ -250,22 +259,147 @@
         const modal = document.getElementById('result-modal');
         const modalContent = modal.querySelector('div');
         const winnerText = document.getElementById('winner-text');
+        const wheelSvg = document.getElementById('wheel-svg');
+        const prizeIcons = document.getElementById('prize-icons');
         
         let currentRotation = 0;
         let isSpinning = false;
 
-        const prizes = [
-            "Xe Máy Cao Cấp",
-            "Chúc Bạn May Mắn",
-            "Dầu Máy",
-            "Tai Nghe Pro",
-            "Điện Thoại Luxury"
+        const prizeSegments = [
+            {
+                id: 'xe-may',
+                name: 'Xe Máy Cao Cấp',
+                color: '#af101a',
+                type: 'image',
+                content: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCOSZxAGEwAg_g3rbuOmSe072V3mxX45ssxvgL43JeG-iPLQj8E0qYJaSiCj9farGLKYJksVnDKvFBHnWzDm8-GLlxDkYNAab4HYiXigM-SBc7HWVDJh-0M7uPmrCMs85iJo5apaIBqEFiKhgymNHTyJg2EmoyamIXQqJE0t8CRIYZtuRaZRLR5gfA7PEq44mSnUjGTMHTOpf_FI0yGAlSFgzE7RktcGO2ZQu7cmgRq1dwYalMDPP2ILjU-JACF-tPTBFR78GmDUeU'
+            },
+            {
+                id: 'cong-tac-den-xe',
+                name: 'Công Tắc Đèn Xe',
+                color: '#005a98',
+                type: 'image',
+                content: 'den.jpeg'
+            },
+            {
+                id: 'dien-thoai',
+                name: 'Điện Thoại Luxury',
+                color: '#6a1b9a',
+                type: 'image',
+                content: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAbdmuqJ1ZQBY-0ztvGtwnDs4SW9NFcysrVrKAiBOyX5QlFZODDz0PPv3hZdUWAuqTh6TQd4cdSDhC8RIm8gBWkiP_U-S-BwO-Cq4XA6PO9KvMIIl8qX5TLORE3gxmGCOAP4wP42cSeEkO6JNff7qdCdHmCYFVGwirO4SeYiQHz0OaERuDaGlehKgMOtasAFDxBFnIniGXyt_fjtQD9ARIUK_qSD1N5Ubeikj4U4xjc2hcbnjS1Pk3dHQclmAZ6f0QDxOPPMiPogpk'
+            },
+            {
+                id: 'dau-may',
+                name: 'Dầu Máy',
+                color: '#008080',
+                type: 'image',
+                content: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBSNBjUiugvoFOVkQokh-mZma39bgGVy-sILbqfd22ayAqQ6h2PlpbM82VY85VvXPfMaLXxizFrgu9chiXjrbFmdsD_dT1YZ_RD3l2aQW-S6IqaVVUWFbvCL4fYR3LSzoqujcW31hpWvCL_DoA_FDsR7c4lcdhCosyOg3b4k4ETTkga7M7IruS4AJBOYoXFZLUVr8DzwpCqeMJVEGf8yElspfgNUvr4-NiVlPPq4joLqVZZPNi8oNPEVywmmAyCTHgHVfQeEa0RozM'
+            },
+            {
+                id: 'tai-nghe',
+                name: 'Tai Nghe Pro',
+                color: '#355f9d',
+                type: 'image',
+                content: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAMw1Q2x1meJtooiF6NWyb9qUyrtSDyIHcpRdHm0qb6hSjqbDmG9f5kxBUKsPQQ8XTwUeaFneVrAT8Xoy_GPB4mWHS4VrW4jbdK_KfUAwc7E-WeVriPq09fgBTJojvsopRkJ-U5RqP6rTiShaNHy4CiM1NOGXPkl1GwDHL4A1dNKUWnFb-BR_OKBQcXmBPEHKZWaauAz1mfqcz4lFeba5rPV9b4u-ptGPtZZwEHj9Vx18ADNvlXU1XDxcpzrEhivIaUVduwQTvCJ9M'
+            },
+            {
+                id: 'tham-chan',
+                name: 'Thảm Chân',
+                color: '#7a2f20',
+                type: 'image',
+                content: 'tham.jpeg'
+            },
+            {
+                id: 'chuc-may-man',
+                name: 'Chúc Bạn May Mắn',
+                color: '#fdc003',
+                type: 'text',
+                content: 'Chúc bạn<br/>may mắn'
+            }
         ];
-        const prizeStopAngles = [324, 36, 108, 180, 252];
+
+        const weightedPrizes = [
+            { id: 'cong-tac-den-xe', weight: 5 },
+            { id: 'tham-chan', weight: 5 },
+            { id: 'dau-may', weight: 45 },
+            { id: 'chuc-may-man', weight: 45 }
+        ];
+
+        function toRadians(degrees) {
+            return degrees * Math.PI / 180;
+        }
+
+        function pointOnWheel(degrees, radius = 50) {
+            const radians = toRadians(degrees);
+            return {
+                x: 50 + radius * Math.cos(radians),
+                y: 50 + radius * Math.sin(radians)
+            };
+        }
+
+        function segmentPath(startAngle, endAngle) {
+            const start = pointOnWheel(startAngle);
+            const end = pointOnWheel(endAngle);
+            const largeArcFlag = endAngle - startAngle > 180 ? 1 : 0;
+            return `M 50 50 L ${start.x.toFixed(2)} ${start.y.toFixed(2)} A 50 50 0 ${largeArcFlag} 1 ${end.x.toFixed(2)} ${end.y.toFixed(2)} Z`;
+        }
+
+        function createPrizeMarkup(prize) {
+            if (prize.type === 'image') {
+                return `<img alt="${prize.name}" src="${prize.content}"/>`;
+            }
+
+            if (prize.type === 'svg') {
+                return prize.content;
+            }
+
+            return `<span class="wheel-prize-text">${prize.content}</span>`;
+        }
+
+        function renderWheel() {
+            const segmentSize = 360 / prizeSegments.length;
+            wheelSvg.innerHTML = '';
+            prizeIcons.innerHTML = '';
+
+            prizeSegments.forEach((prize, index) => {
+                const startAngle = -90 + index * segmentSize;
+                const endAngle = startAngle + segmentSize;
+                const centerAngle = startAngle + segmentSize / 2;
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('d', segmentPath(startAngle, endAngle));
+                path.setAttribute('fill', prize.color);
+                path.setAttribute('stroke', 'white');
+                path.setAttribute('stroke-width', '0.55');
+                wheelSvg.appendChild(path);
+
+                const position = pointOnWheel(centerAngle, 30);
+                const marker = document.createElement('div');
+                marker.className = 'wheel-prize-marker absolute';
+                marker.style.left = `${position.x}%`;
+                marker.style.top = `${position.y}%`;
+                marker.style.transform = 'translate(-50%, -50%)';
+                marker.innerHTML = `<div class="wheel-prize-badge">${createPrizeMarkup(prize)}</div>`;
+                prizeIcons.appendChild(marker);
+            });
+        }
+
+        function getPrizeStopAngle(prizeIndex) {
+            const segmentSize = 360 / prizeSegments.length;
+            const centerAngle = -90 + prizeIndex * segmentSize + segmentSize / 2;
+            return (-90 - centerAngle + 360) % 360;
+        }
 
         function getWinningPrizeIndex() {
-            return Math.random() < 0.6 ? 1 : 2;
+            const roll = Math.random() * 100;
+            let total = 0;
+            const selected = weightedPrizes.find((prize) => {
+                total += prize.weight;
+                return roll < total;
+            }) || weightedPrizes[weightedPrizes.length - 1];
+
+            return prizeSegments.findIndex((prize) => prize.id === selected.id);
         }
+
+        renderWheel();
 
         btn.addEventListener('click', () => {
             if (isSpinning) return;
@@ -274,7 +408,7 @@
             const prizeIndex = getWinningPrizeIndex();
             const extraRounds = 5 + Math.floor(Math.random() * 5);
             const currentAngle = currentRotation % 360;
-            const stopAngle = prizeStopAngles[prizeIndex];
+            const stopAngle = getPrizeStopAngle(prizeIndex);
             const angleToTarget = (stopAngle - currentAngle + 360) % 360;
             const totalRotation = extraRounds * 360 + angleToTarget;
             
@@ -283,7 +417,7 @@
 
             setTimeout(() => {
                 isSpinning = false;
-                showWinner(prizes[prizeIndex]);
+                showWinner(prizeSegments[prizeIndex].name);
             }, 10000);
         });
 
