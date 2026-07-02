@@ -121,7 +121,7 @@
         }
 
         #wheel-canvas {
-            transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1);
+            transition: transform 10s cubic-bezier(0.15, 0, 0.15, 1);
         }
 
         .prize-segment {
@@ -154,7 +154,7 @@
 <!-- Title & Subtitle Section -->
 <div class="text-center mb-8 z-10 animate-fade-in px-4">
 <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-2 drop-shadow-md">
-                CHÀO MỪNG BẠN!
+                XE MÁY ĐỨC ANH
             </h2>
 <p class="text-on-surface-variant font-body-md max-w-md mx-auto">
                 Nhấn nút để quay và nhận quà cực khủng! Cơ hội trúng giải thưởng cao cấp mỗi ngày.
@@ -284,7 +284,7 @@
             setTimeout(() => {
                 isSpinning = false;
                 showWinner(prizes[prizeIndex]);
-            }, 4000);
+            }, 10000);
         });
 
         function showWinner(prize) {
